@@ -32,4 +32,18 @@ public class ProductoController {
         return ResponseEntity.ok("ok");
     }
 
+    @RequestMapping(method = RequestMethod.POST, path = "/aniadir")
+    public ResponseEntity aniadirProducto(@RequestBody ProductoDto productoDto) {
+        productoService.comprarProducto(productoDto);
+        return ResponseEntity.ok("ok");
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/contarProductos")
+    public ResponseEntity<Long> contarProducto() {
+        Long productos = productoService.contarProductos();
+        return ResponseEntity.ok(productos);
+    }
+
+
+
 }

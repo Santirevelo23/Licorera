@@ -36,4 +36,8 @@ public class ProductoService {
             productoRepository.save(producto);
         }
     }
+
+    public Long contarProductos() {
+        return productoRepository.countAll();
+    }
 }
