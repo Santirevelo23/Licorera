@@ -11,6 +11,13 @@ spring:
       data-locations: classpath:data.sql
   jpa:
     show-sql: true
+  thymeleaf:
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    cache: false
 server:
   port: 8080
 management:
@@ -23,3 +30,4 @@ management:
     web:
       exposure:
         include: "*" # Expose all management endpoints
+
