@@ -46,9 +46,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: java-app
+          path: /home/site/deployments/
 
       - name: Verify artifact download
-        run: ls -la
+        run: ls -l java-app
 
       - name: Login to Azure
         uses: azure/login@v1
@@ -62,4 +63,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'LicoreraFull'
-          package: '*.jar'
+          package: 'java-app/*.jar'
