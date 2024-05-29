@@ -1,4 +1,4 @@
-name: Build and deploy WAR app to Azure Web App - LicoreraFull
+name: Build and deploy JAR app to Azure Web App - LicoreraFull
 
 on:
   push:
@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Set up Java version
         uses: actions/setup-java@v3
@@ -22,11 +23,14 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
+      - name: List files in target directory
+        run: ls -la target
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: java-app
-          path: 'target/*.war'
+          path: 'target/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
@@ -42,7 +46,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: java-app
-      
+
+      - name: Verify artifact download
+        run: ls -l
+        working-directory: java-app
+
       - name: Login to Azure
         uses: azure/login@v1
         with:
@@ -56,4 +64,4 @@ jobs:
         with:
           app-name: 'LicoreraFull'
           slot-name: 'Production'
-          package: 'java-app/*.war'
+          package: 'java-app/*.jar'
